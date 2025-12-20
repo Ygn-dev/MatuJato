@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc87193ecd094a840a3e61b9345c1ef7, type: 3}
-  m_Name: Nivel4_Data
+  m_Name: Nivel5_Data
   m_EditorClassIdentifier: Assembly-CSharp::NivelDataBase
-  nivelName: Nivel4_Data
+  nivelName: Nivel5_Data
   escalaPersonaje: {x: 1, y: 1, z: 0}
-  respawnPoint: {x: 85.53, y: -6.32, z: 0}
+  respawnPoint: {x: 120, y: -6, z: 0}
   camaraZoom: 10
   screenPositionComposer: {x: 0, y: 0}
   esDeadZone: 0
   deadZoneWidthHeight: {x: 0, y: 0}
   damping: 0
   slowingDistance: 10
-  confiner: {fileID: 2013709094199331783, guid: 5718f23e709bb51488dd78806b28b8d2, type: 3}
+  confiner: {fileID: 2856805451565331258, guid: 34d911050ebaff54b9c57654c3be28b1, type: 3}
   triggerDialogoInicial: {fileID: 0}

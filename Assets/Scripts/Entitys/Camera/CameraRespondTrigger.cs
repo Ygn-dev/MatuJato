@@ -3,17 +3,22 @@ using UnityEngine;
 public class CameraRespondTrigger : MonoBehaviour
 {
     public bool activated = false;
+    public Respawn respawn;
+
     private float startZ;
     private float targetZ;
     private float rotationTimer;
-
-
     private float initialZ;
     private float rotationDuration;
+    private Vector3 positionBuff;
+    private Quaternion rotationBuff;
 
     void Start()
     {
         initialZ = transform.eulerAngles.z;
+        respawn.respawnEvent += respawnEvento;
+        positionBuff = transform.position;
+        rotationBuff = transform.rotation;
     }
 
     public void Girar(float rotationAmount, float rotaDuration)
@@ -43,8 +48,15 @@ public class CameraRespondTrigger : MonoBehaviour
             activated = false;
         }
     }
-    public void ResetEstado()
+
+    private void respawnEvento()
     {
+        transform.position = positionBuff;
+        transform.rotation = rotationBuff; 
+    }
+
+    public void ResetEstado()
+    {/*
         activated = false;
         rotationTimer = 0f;
 
@@ -52,6 +64,6 @@ public class CameraRespondTrigger : MonoBehaviour
             transform.eulerAngles.x,
             transform.eulerAngles.y,
             initialZ
-        );
+        );*/
     }
 }

@@ -25,8 +25,4 @@ public class PuzzleReset : MonoBehaviour
         if (other.CompareTag("Player"))
             ResetPuzzle();
     }
-
-
-
-
 }

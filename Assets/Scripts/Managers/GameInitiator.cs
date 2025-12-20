@@ -18,7 +18,7 @@ public class GameInitiator : MonoBehaviour
     private NivelDataBase nivelData;
     private GameObject confinerInst = null;
     private Vector3 dampbuff;
-    private bool hayMusica = false;
+    public bool hayMusica = false;
 
     //singleton pattern
     public static GameInitiator instance;

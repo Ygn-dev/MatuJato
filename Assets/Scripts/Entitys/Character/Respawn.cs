@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System;
 
 public class Respawn : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Respawn : MonoBehaviour
     public Animator animator;
     public InputActionReference move;
     [HideInInspector] public Vector3 respawnPoint;
+    public event Action respawnEvent;
 
     private bool estaEnAnimacion = false;
 
@@ -16,7 +18,6 @@ public class Respawn : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("DeathZone") && !estaEnAnimacion)
         {
-            Debug.Log("Respawning Character");
             estaEnAnimacion = true;
             move.action.Disable();
             StartCoroutine(VibrateRoutine());
@@ -33,6 +34,7 @@ public class Respawn : MonoBehaviour
     
     public void RespawnCharacter()
     {
+        respawnEvent?.Invoke();
         characterTransform.position = respawnPoint;
         characterTransform.GetComponent<PlayerController>().FirstAnim();
         estaEnAnimacion = false;
