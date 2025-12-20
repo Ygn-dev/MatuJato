@@ -2,26 +2,27 @@ using UnityEngine;
 
 public class CameraRespondTrigger : MonoBehaviour
 {
-    public float rotationAmount;
-    public float rotationDuration;
-
-    private bool activated = false;
+    public bool activated = false;
     private float startZ;
     private float targetZ;
     private float rotationTimer;
 
+
     private float initialZ;
+    private float rotationDuration;
 
     void Start()
     {
         initialZ = transform.eulerAngles.z;
     }
-    public void Girar()
+
+    public void Girar(float rotationAmount, float rotaDuration)
     {
         if (!activated)
         {
             activated = true;
             startZ = transform.eulerAngles.z;
+            rotationDuration = rotaDuration;
             targetZ = startZ + rotationAmount;
             rotationTimer = 0f;
         }

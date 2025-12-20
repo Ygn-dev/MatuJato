@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
-using UnityEngine.Animations;
 
 public class GameInitiator : MonoBehaviour
 {
@@ -11,15 +10,15 @@ public class GameInitiator : MonoBehaviour
     public InputActionAsset inputActionAsset;
     public CinemachineCamera cameraBrain;
     public Canvas gameplayCanvas;
-
-
+    public GameObject musica;
     public bool esPrimeraCarga = false;
+    public float fadeOut = 3.5f;
+
     private Respawn respawnScript;
     private NivelDataBase nivelData;
     private GameObject confinerInst = null;
     private Vector3 dampbuff;
-    private float slowingDisBuff;
-    private float damp2buff;
+    private bool hayMusica = false;
 
     //singleton pattern
     public static GameInitiator instance;
@@ -34,10 +33,10 @@ public class GameInitiator : MonoBehaviour
         yield return StartCoroutine(BindearDatos());
         yield return StartCoroutine(ColocarCamara());
         yield return StartCoroutine(ColocarPersonaje());
-        if(!esPrimeraCarga) yield return StartCoroutine(ActivarActionMaps());
         yield return StartCoroutine(RenaudarElTiempo());
         yield return StartCoroutine(ActivarDamping());
-        if(!esPrimeraCarga) StartCoroutine(SoltarPantallaCarga());
+        if(!esPrimeraCarga) yield return StartCoroutine(ActivarActionMaps());
+        if(!esPrimeraCarga) yield return StartCoroutine(SoltarPantallaCarga(fadeOut));
         if(esPrimeraCarga) yield return StartCoroutine(primeraCarga());   
     }
 
@@ -85,8 +84,20 @@ public class GameInitiator : MonoBehaviour
     {
         // obtener datos del nivel
         nivelData = (NivelDataBase)gameData;
-        if (nivelData.nivelName == "Lobby_Data") esPrimeraCarga = true;
-        else esPrimeraCarga = false;
+        if (nivelData.nivelName == "Lobby_Data")
+        {
+            esPrimeraCarga = true;
+        }
+        else
+        {
+            if (!hayMusica)
+            {
+                Instantiate(musica);
+                hayMusica = true;
+            }
+            esPrimeraCarga = false;
+        }
+
         // obtener referencia al script respawn y bindear datos
         respawnScript = character.GetComponentInChildren<Respawn>();
         // cambiar el punto de respawn desde el scriptable object
@@ -99,8 +110,6 @@ public class GameInitiator : MonoBehaviour
     {
         // Obtener componentes necesarios
         dampbuff = cameraBrain.GetComponent<CinemachinePositionComposer>().Damping;
-        slowingDisBuff = cameraBrain.GetComponent<CinemachineConfiner2D>().SlowingDistance;
-        damp2buff = cameraBrain.GetComponent<CinemachineConfiner2D>().Damping;
 
         cameraBrain.GetComponent<CinemachinePositionComposer>().Damping = Vector3.zero;
         cameraBrain.GetComponent<CinemachineConfiner2D>().SlowingDistance = 0f;
@@ -134,6 +143,8 @@ public class GameInitiator : MonoBehaviour
         character.transform.localScale = nivelData.escalaPersonaje;
         respawnScript.RespawnCharacter();
         character.GetComponent<PlayerController>().FirstAnim();
+        cameraBrain.ForceCameraPosition(character.transform.position, cameraBrain.transform.rotation);
+        cameraBrain.Follow = character.transform;
 
         yield return null;
     }
@@ -141,8 +152,8 @@ public class GameInitiator : MonoBehaviour
     private IEnumerator ActivarDamping()
     {
         cameraBrain.GetComponent<CinemachinePositionComposer>().Damping = dampbuff;
-        cameraBrain.GetComponent<CinemachineConfiner2D>().SlowingDistance = slowingDisBuff;
-        cameraBrain.GetComponent<CinemachineConfiner2D>().Damping = damp2buff;
+        cameraBrain.GetComponent<CinemachineConfiner2D>().SlowingDistance = nivelData.slowingDistance;
+        cameraBrain.GetComponent<CinemachineConfiner2D>().Damping = nivelData.damping;
         yield return new WaitForFixedUpdate();
         yield return null;
     }
@@ -166,9 +177,9 @@ public class GameInitiator : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator SoltarPantallaCarga()
+    public IEnumerator SoltarPantallaCarga(float fadeOut = 3.5f)
     {
-        yield return gameplayCanvas.GetComponent<PantallaCarga>().FadeOut(3.5f);
+        yield return gameplayCanvas.GetComponent<PantallaCarga>().FadeOut(fadeOut);
         if (esPrimeraCarga) yield return new WaitForSeconds(1f);
         yield return null;
     }

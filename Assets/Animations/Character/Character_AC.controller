@@ -282,7 +282,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Respawn
-  m_Speed: -0.2
+  m_Speed: 0.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1510023623996939625}
@@ -295,7 +295,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: dc57abcd18924e34092569c6f28e5afd, type: 2}
+  m_Motion: {fileID: 7400000, guid: a122d70889fc8ea43b57d2ff45ced2b6, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -504,7 +504,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: bc7929dfd529ead49a849ef40521d944, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 1}
-    m_TimeScale: 1
+    m_TimeScale: 0.2
     m_CycleOffset: 0
     m_DirectBlendParameter: moveX
     m_Mirror: 0
@@ -512,7 +512,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: dc57abcd18924e34092569c6f28e5afd, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: 0, y: -1}
-    m_TimeScale: 1
+    m_TimeScale: 0.2
     m_CycleOffset: 0
     m_DirectBlendParameter: moveX
     m_Mirror: 0

@@ -12,7 +12,7 @@ public class BotonUnaVezCamara : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            camara.Girar();
+            camara.Girar(-90f, 3.5f);
             usado = true;
         }
     }

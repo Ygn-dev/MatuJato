@@ -4,17 +4,20 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 
 
 
 public class LectorGuion : MonoBehaviour
 {
     public GameObject prefab_TextBox;
+    public GameObject prefab_TextBox2;
+    public GameObject prefab_TextBox3;
     public float tiempoTransicionDialogos;
     public AnimationCurve curvaTransicionDialogos;
     public AnimationCurve curvaAparicionTexto;
     public float velocidadEscritura;
-
+    public characterStats characterStats;
 
     private InputActionReference interact;
     private TMP_Text tmpText;
@@ -36,21 +39,29 @@ public class LectorGuion : MonoBehaviour
         for (int i = 1; i < lines.Length - 1; i++)
         {
             //por cada linea del guion
-            yield return moverYcrearNuevo(dialoguesBox, i);
-            yield return LeerLinea(lines[i]);
+            string[] partes = lines[i].Split(';');
+            int numero = int.Parse(partes[0]);
+            string texto = partes[1];
+            string personaje = partes[2];
+
+            yield return moverYcrearNuevo(dialoguesBox, i,personaje);
+            if(personaje.Trim() == "llave") SoundFXManager.instance.PlaySound(SoundType.COGER_LLAVE,0.8f);
+            yield return LeerLinea(texto);
         }
 
         yield return null;
     }
 
 
-    private IEnumerator moverYcrearNuevo(GameObject dialoguesBox, int index)
+    private IEnumerator moverYcrearNuevo(GameObject dialoguesBox, int index, string personaje)
     {
         //si es el primero, inicializar lista y salir
         if (index == 1)
         {
             //crear nueva caja de dialogo
-            instTextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
+            if(personaje.Trim() == "character") instTextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
+            if(personaje.Trim() == "recepcionista") instTextBox = Instantiate(prefab_TextBox2, dialoguesBox.transform);
+
             //posicionar caja
             instTextBox.transform.localPosition = new Vector3(0, -90, 0);
             //obtener componentes
@@ -70,6 +81,7 @@ public class LectorGuion : MonoBehaviour
             pedazoPapel.color = finalColorPapel;
 
             animPapel.SetTrigger("PlayIntro");
+            SoundFXManager.instance.PlaySound(SoundType.ABRIR_DIALOGO,0.4f);
 
             
             //finalizar animacion
@@ -85,7 +97,14 @@ public class LectorGuion : MonoBehaviour
 
 
             //crear nueva caja de dialogo
-            instTextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
+            if(personaje.Trim() == "character") instTextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
+            if(personaje.Trim() == "recepcionista") instTextBox = Instantiate(prefab_TextBox2, dialoguesBox.transform);
+            if(personaje.Trim() == "llave")
+            {
+                characterStats.tieneLlave = true;
+                instTextBox = Instantiate(prefab_TextBox3, dialoguesBox.transform);
+            }
+
             //posicionar caja
             instTextBox.transform.localPosition = new Vector3(0, -90, 0);
             //obtener componentes
@@ -157,13 +176,8 @@ public class LectorGuion : MonoBehaviour
         
     }
 
-    private IEnumerator LeerLinea(string line)
+    private IEnumerator LeerLinea(string texto)
     {
-        string[] partes = line.Split(';');
-        int numero = int.Parse(partes[0]);
-        string texto = partes[1];
-        string emocion = partes[2];
-
         yield return MostrarTextoLinea(texto);
         yield return new WaitUntil(() => !interact.action.triggered);
         //esperar accion del jugador para continuar

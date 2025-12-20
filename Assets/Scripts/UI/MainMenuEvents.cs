@@ -33,7 +33,9 @@ public class MainMenuEvents : MonoBehaviour
     private IEnumerator IniciarNuevoJuego()
     {
         fade.SetActive(true);
+        SoundFXManager.instance.PlaySound(SoundType.CLICK_JUGAR);
         yield return StartCoroutine(fade.GetComponent<PantallaCarga>().FadeIn(1f));
+        yield return new WaitForSeconds(3f);
         UnityEngine.SceneManagement.SceneManager.LoadScene("ZonaCamaras");
     }
 }

@@ -8,6 +8,7 @@ public class Interactuar : MonoBehaviour
     private Collider2D triggerCollider;
     private bool isDialouge = false;
     private bool isDoor = false;
+    private bool isClossedDoor = false;
     
 
     void Start()
@@ -21,18 +22,24 @@ public class Interactuar : MonoBehaviour
         {
             if (isDialouge) triggerCollider.GetComponent<DialogueTrigger>().TriggerDialogue();
             if (isDoor) triggerCollider.GetComponent<TransicionNiveles>().CambiarNivel();
+            if (isClossedDoor)
+            {
+                triggerCollider.GetComponent<TransicionNiveles>().siempreCerrado();
+                return;
+            }
             triggerCollider.GetComponent<BotonInteraccion>().OcultarBoton();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Dialogue") || collision.CompareTag("Door")) 
+        if (collision.CompareTag("Dialogue") || collision.CompareTag("Door") || collision.CompareTag("ClosedDoor")) 
         {
             triggerCollider = collision;
             isInRange = true;
             if (collision.CompareTag("Dialogue")) isDialouge = true;
             if (collision.CompareTag("Door")) isDoor = true;
+            if (collision.CompareTag("ClosedDoor")) isClossedDoor = true;
         }
     }
 
@@ -51,5 +58,10 @@ public class Interactuar : MonoBehaviour
     public void Respawn()
     {
         GetComponentInChildren<Respawn>().RespawnCharacter();
+    }
+
+    public void ReproducirAparicion()
+    {
+        SoundFXManager.instance.PlaySound(SoundType.REVIVE);
     }
 }

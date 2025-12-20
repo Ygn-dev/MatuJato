@@ -11,13 +11,14 @@ public class NivelDataBase : ScriptableObject
     
     [Header("Respawn Points")]
     public Vector3 respawnPoint;
-    public Vector3[] respawnPoints;
 
     [Header("Cámara")]
     public float camaraZoom;
     public Vector2 screenPositionComposer;
     public bool esDeadZone;
     public Vector2 deadZoneWidthHeight;
+    public float damping;
+    public float slowingDistance;
 
     [Header("Confiner")]
     public GameObject confiner;

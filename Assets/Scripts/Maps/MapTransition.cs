@@ -16,8 +16,6 @@ public class MapTransition : MonoBehaviour {
 
     public void Start() {
         NivelDataBase data = (NivelDataBase)nivelData;
-        //xCameraPosition = data.camaraPosicionX;
-        //yCameraPosition = data.camaraPosicionY;
         sizeCamera = data.camaraZoom;
         xRespawn = data.respawnPoint.x;
         yRespawn = data.respawnPoint.y;

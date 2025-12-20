@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: Nivel4_Data
   m_EditorClassIdentifier: Assembly-CSharp::NivelDataBase
   nivelName: Nivel4_Data
-  camaraPosicionX: 99
-  camaraPosicionY: 0.6
-  camaraZoom: 10.6
-  respawnPoint: {x: 85, y: -5, z: 0}
+  escalaPersonaje: {x: 1, y: 1, z: 0}
+  respawnPoint: {x: 85.53, y: -6.32, z: 0}
+  camaraZoom: 10
+  screenPositionComposer: {x: 0, y: 0}
+  esDeadZone: 0
+  deadZoneWidthHeight: {x: 0, y: 0}
+  damping: 0.5
+  slowingDistance: 5
+  confiner: {fileID: 2013709094199331783, guid: 5718f23e709bb51488dd78806b28b8d2, type: 3}
+  triggerDialogoInicial: {fileID: 0}

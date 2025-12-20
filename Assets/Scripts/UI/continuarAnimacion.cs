@@ -1,5 +1,7 @@
 using UnityEngine;
-using UnityEngine.UIElements;
+using System.Collections;
+
+
 
 public class continuarAnimacion : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class continuarAnimacion : MonoBehaviour
     public Animator logo;
     public Animator Texto;
     public GameObject fondoTapa;
+    public AudioSource musicaFondo;
     
     public void ContinuarAnimacion()
     {
@@ -23,11 +26,16 @@ public class continuarAnimacion : MonoBehaviour
     {
         fondoTapa.SetActive(true);
         animator.SetTrigger("LLave");
-    }
-
-    public void ContinuarAnimacion4()
-    {
         logo.SetTrigger("Logo");
         Texto.SetTrigger("Aparecer");
+
+        SoundFXManager.instance.PlaySound(SoundType.ABRIR_PUERTA);
+        StartCoroutine(MusicaFondo());
+    }
+
+    private IEnumerator MusicaFondo()
+    {
+        yield return new WaitForSeconds(0.35f);
+        musicaFondo.Play();
     }
 }

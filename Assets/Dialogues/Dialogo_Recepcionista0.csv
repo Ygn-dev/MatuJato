@@ -1,0 +1,20 @@
+numero;linea;personaje
+1;Disculpe…;character
+2;Caballero. Gracias por esperar;recepcionista
+3;Su habitación se encuentra lista. Sus pertenencias le están esperando.;recepcionista
+4;…;character
+5;¿Algo anda mal señor?;recepcionista
+6;Yo…;character
+7;Uno se puede perder en su mirada, ¿Cierto?;recepcionista
+8;…;character
+9;¿Lo he visto antes?;character
+10;Por supuesto.;recepcionista
+11;Bueno. Aquí está su llave, caballero.;recepcionista
+12;*recibiste llave de la puerta*;llave
+13;¿Puedo ayudarle en algo más?.;recepcionista
+14;Sí. Es que no recuerdo cómo… ;character
+15;Por supuesto. Como le indiqué previamente, diríjase por las escaleras a la planta superior.;recepcionista
+16;Su habitación actual se encuentra tras la primera puerta a la derecha.;recepcionista
+17;Ehh... Gracias. Creo que solo necesito descansar.;character
+18;Estoy seguro. Estaré atento a lo que necesite.;recepcionista
+19;¡Disfrute su visita!;recepcionista
