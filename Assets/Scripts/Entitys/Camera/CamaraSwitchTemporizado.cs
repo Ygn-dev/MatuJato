@@ -5,7 +5,7 @@ public class CamaraSwitchTemporizado : MonoBehaviour
     public CamaraLightController[] camarasToToggle;
     //private bool isActive = false; // estado del switch
     private bool isRunning = false;
-    private float activeTime = 10f;
+    public float activeTime = 10f;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
