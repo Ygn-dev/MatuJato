@@ -14,6 +14,7 @@ public class TransicionNiveles : MonoBehaviour
     {
         if(!characterStats.tieneLlave)
         {
+            Debug.Log("La puerta esta cerrada");
             SoundFXManager.instance.PlaySound(SoundType.PUERTA_BLOQQUEADA,0.7f);
         }
         if(characterStats.tieneLlave)

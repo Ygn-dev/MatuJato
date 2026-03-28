@@ -128,6 +128,8 @@ public class LectorGuion : MonoBehaviour
                 posicionesFinales[i] = new Vector3(listaCajas[i].transform.localPosition.x, listaCajas[i].transform.localPosition.y + 270, listaCajas[i].transform.localPosition.z);
             }
 
+            SoundFXManager.instance.PlaySound(SoundType.NEXT_DIALOGUE,0.4f);
+
             float tiempo = 0f;
 
             while (tiempo < tiempoTransicionDialogos)

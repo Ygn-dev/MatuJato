@@ -10,6 +10,7 @@ TagManager:
   - PlayerHitBox
   - ClosedDoor
   - MusicaZonaCamaras
+  - LockedDoor
   layers:
   - Default
   - TransparentFX

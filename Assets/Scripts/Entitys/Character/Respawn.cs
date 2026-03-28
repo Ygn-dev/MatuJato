@@ -18,6 +18,7 @@ public class Respawn : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("DeathZone") && !estaEnAnimacion)
         {
+            SoundFXManager.instance.PlaySound(SoundType.GETTING_HIT,0.5f);
             estaEnAnimacion = true;
             move.action.Disable();
             StartCoroutine(VibrateRoutine());

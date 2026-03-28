@@ -12,7 +12,10 @@ public enum SoundType
     ABRIR_PUERTA,
     COGER_LLAVE,
     PUERTA_BLOQQUEADA,
-    CLICK_JUGAR
+    CLICK_JUGAR,
+    GETTING_HIT,
+    NEXT_DIALOGUE,
+    ENTE_MOVIENDO
 }
 
 [Serializable]

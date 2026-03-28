@@ -25,6 +25,7 @@ public class CameraRespondTrigger : MonoBehaviour
     {
         if (!activated)
         {
+            SoundFXManager.instance.PlaySound(SoundType.ENTE_MOVIENDO, 0.6f);
             activated = true;
             startZ = transform.eulerAngles.z;
             rotationDuration = rotaDuration;

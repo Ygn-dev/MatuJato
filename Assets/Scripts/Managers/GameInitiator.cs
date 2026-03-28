@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
+using UnityEngine.Video;
 
 public class GameInitiator : MonoBehaviour
 {
@@ -13,12 +14,16 @@ public class GameInitiator : MonoBehaviour
     public GameObject musica;
     public bool esPrimeraCarga = false;
     public float fadeOut = 3.5f;
+    public VideoPlayer videoPlayer;
+    public GameObject pantallaCargaNegro;
+    public GameObject campanita;
 
     private Respawn respawnScript;
     private NivelDataBase nivelData;
     private GameObject confinerInst = null;
     private Vector3 dampbuff;
     public bool hayMusica = false;
+    private GameObject pantNegro;
 
     //singleton pattern
     public static GameInitiator instance;
@@ -42,10 +47,45 @@ public class GameInitiator : MonoBehaviour
 
     private IEnumerator primeraCarga()
     {
-        yield return StartCoroutine(frameLevantarse());
+        campanita.SetActive(false);
+        yield return StartCoroutine(spawnearNegro());
         yield return StartCoroutine(SoltarPantallaCarga());
+        yield return StartCoroutine(Animatic());
+        campanita.SetActive(true);
+        yield return StartCoroutine(frameLevantarse());
         yield return StartCoroutine(animacionLevantarse());
-        
+    }
+
+    private IEnumerator spawnearNegro()
+    {
+        pantNegro = Instantiate(pantallaCargaNegro, transform);
+
+        SpriteRenderer sr = pantNegro.GetComponent<SpriteRenderer>();
+
+        float duracion = 0.5f;
+        float t = 0f;
+
+        Color color = sr.color;
+
+        while (t < duracion)
+        {
+            t += Time.deltaTime;
+            float alpha = Mathf.Lerp(0f, 1f, t / duracion);
+            sr.color = new Color(color.r, color.g, color.b, alpha);
+            yield return null;
+        }
+
+        sr.color = new Color(color.r, color.g, color.b, 1f);
+    }
+
+    private IEnumerator Animatic()
+    {
+        //reproducir video y luego parar el play
+        videoPlayer.Play();
+        yield return new WaitForSeconds(0.2f);
+        Destroy(pantNegro);
+        yield return new WaitForSeconds((float)videoPlayer.clip.length);
+        videoPlayer.Stop();
     }
 
     public IEnumerator continuacionCarga()

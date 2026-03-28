@@ -38,4 +38,9 @@ public class MainMenuEvents : MonoBehaviour
         yield return new WaitForSeconds(3f);
         UnityEngine.SceneManagement.SceneManager.LoadScene("ZonaCamaras");
     }
+
+    public void SalirJuego()
+    {
+        Application.Quit();
+    }
 }
