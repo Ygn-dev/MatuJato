@@ -8342,7 +8342,13 @@ MonoBehaviour:
   inputActionAsset: {fileID: -944628639613478452, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
   cameraBrain: {fileID: 0}
   gameplayCanvas: {fileID: 0}
+  musica: {fileID: 0}
   esPrimeraCarga: 0
+  fadeOut: 3.5
+  videoPlayer: {fileID: 0}
+  pantallaCargaNegro: {fileID: 0}
+  campanita: {fileID: 0}
+  hayMusica: 0
 --- !u!4 &2023483941
 Transform:
   m_ObjectHideFlags: 0
