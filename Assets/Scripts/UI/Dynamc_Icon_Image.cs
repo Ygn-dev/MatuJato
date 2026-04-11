@@ -10,8 +10,8 @@ public class Dynamc_Icon_Image : MonoBehaviour
 
     void Awake() {
         image = GetComponent<Image>();
-        InputSchemaHandler.ChangedSchema += UpdateIcon;
-        UpdateIcon(InputSchemaHandler.Instance.currentSchema);
+        InputSchemaManager.ChangedSchema += UpdateIcon;
+        UpdateIcon(InputSchemaManager.Instance.currentSchema);
     }
 
 

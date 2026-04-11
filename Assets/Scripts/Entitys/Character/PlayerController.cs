@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public InputActionReference move;
     [SerializeField] private bool testing = false;
-
     [HideInInspector] public Vector2 moveInputVector;
 
     void Start()
