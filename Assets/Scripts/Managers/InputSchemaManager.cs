@@ -11,12 +11,18 @@ public class InputSchemaManager : MonoBehaviour
 {
     //SINGLETON
     public static InputSchemaManager Instance { get; private set; }
-    public static event Action<String> ChangedSchema;
-    public InputActionAsset actions;
-    public String currentSchema;
-    public bool isCursorMode;
-    public GameObject defaultCovered = null;
     
+    //REFERENCIA AL ASSET DE INPUT ACTIONS
+    public InputActionAsset actions;
+
+    //EVENTO PARA NOTIFICAR CAMBIO DE ESQUEMA
+    public static event Action<String> ChangedSchema;
+    
+    //HIDE IN INSPECTOR
+    [HideInInspector] public String currentSchema;
+    [HideInInspector] public bool isCursorMode;
+     public GameObject defaultCovered = null;
+ 
     
     void Awake()
     {
@@ -44,7 +50,9 @@ public class InputSchemaManager : MonoBehaviour
         else
         {
             // Detectar movimiento del mouse
-            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+            Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+
+            if (mouseDelta.x != 0 || mouseDelta.y != 0)
             {
                 SetMouseMode(true);
             }
@@ -75,6 +83,7 @@ public class InputSchemaManager : MonoBehaviour
 
     private void OnAnyActionPerformed(InputAction.CallbackContext context)
     {
+        if(esDrift(context)) return;
         if( currentSchema != GetSchema(context))
         {
             Debug.Log("Esquema de control cambiado a: " + GetSchema(context));
@@ -128,16 +137,20 @@ public class InputSchemaManager : MonoBehaviour
             if(hoveredObjects.Count > 0)
             {
                 GameObject currentHovered = GetTopLevelUIInteractable(hoveredObjects);
-                EventSystem.current.SetSelectedGameObject(currentHovered);
+                if(currentHovered != null)
+                {
+                    EventSystem.current.SetSelectedGameObject(currentHovered);
+                }
+                else
+                {
+                    EventSystem.current.SetSelectedGameObject(defaultCovered);
+                }
             }
             //Si no hay objetos bajo el mouse
             else
             {
                 EventSystem.current.SetSelectedGameObject(defaultCovered);
             }
-
-
-
 
             // Desactivar modo cursor
             isCursorMode = false;
@@ -152,7 +165,7 @@ public class InputSchemaManager : MonoBehaviour
     private GameObject GetTopLevelUIInteractable(List<GameObject> hoveredObjects)
 {
     // Componentes UI interactuables que nos interesan
-    System.Type[] interactableTypes = new System.Type[]
+    Type[] interactableTypes = new Type[]
     {
         typeof(Button),
         typeof(Toggle),
@@ -163,12 +176,11 @@ public class InputSchemaManager : MonoBehaviour
         typeof(TMP_InputField),
         typeof(Scrollbar),
         typeof(ScrollRect),
-        typeof(Image),       // opcional, si usas imágenes como botones
     };
 
     foreach (GameObject obj in hoveredObjects)
     {
-        foreach (System.Type type in interactableTypes)
+        foreach (Type type in interactableTypes)
         {
             if (obj.GetComponent(type) != null)
                 return obj;
@@ -183,7 +195,7 @@ public class InputSchemaManager : MonoBehaviour
     {
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
-            position = Input.mousePosition
+            position = Mouse.current.position.ReadValue()
         };
 
         List<RaycastResult> results = new List<RaycastResult>();
@@ -197,5 +209,15 @@ public class InputSchemaManager : MonoBehaviour
         }
 
         return objects;
+    }
+
+    private bool esDrift(InputAction.CallbackContext context)
+    {
+        if (context.action.name == "Move")
+        {
+            Vector2 inputVector = context.ReadValue<Vector2>();
+            return inputVector.magnitude < 0.1f; // Umbral para evitar drift
+        }
+        return false;
     }
 }
