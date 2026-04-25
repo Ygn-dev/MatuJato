@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+<<<<<<< Updated upstream
+=======
+//using UnityEditor.ShaderGraph.Serialization;
+>>>>>>> Stashed changes
 
 public class PantallaCarga : MonoBehaviour
 {
@@ -8,16 +12,16 @@ public class PantallaCarga : MonoBehaviour
     [SerializeField] private Image fadeImage;
     public IEnumerator FadeIn(float duracion = 4.5f)
     {
-        yield return StartCoroutine(AnimarFade(fadeImage,curva, duracion, 1f));
+        yield return StartCoroutine(AnimarFade(fadeImage, curva, duracion, 1f));
     }
     public IEnumerator FadeOut(float duracion = 4.5f)
     {
-        yield return StartCoroutine(AnimarFade(fadeImage,curva, duracion, 0f));
+        yield return StartCoroutine(AnimarFade(fadeImage, curva, duracion, 0f));
     }
 
     private IEnumerator AnimarFade(Image image, AnimationCurve curve, float duration, float targetAlpha)
     {
-        if(targetAlpha == 0) yield return new WaitForSeconds(2.5f);
+        if (targetAlpha == 0) yield return new WaitForSeconds(2.5f);
         float startAlpha = image.color.a;
         float time = 0f;
 

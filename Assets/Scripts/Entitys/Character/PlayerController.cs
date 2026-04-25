@@ -90,12 +90,12 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         GetComponent<Animator>().SetFloat("moveX", moveInputVector.x);
         GetComponent<Animator>().SetFloat("moveY", moveInputVector.y);
-        StartCoroutine(GameInitiator.instance.continuacionCarga()); 
+        StartCoroutine(GameInitiator.instance.continuacionCarga());
     }
 
     public void moverForzoso(float xval)
     {
-        Vector3 newPos = new Vector3(xval,transform.position.y, transform.position.z);
+        Vector3 newPos = new Vector3(xval, transform.position.y, transform.position.z);
         transform.position = newPos;
     }
 

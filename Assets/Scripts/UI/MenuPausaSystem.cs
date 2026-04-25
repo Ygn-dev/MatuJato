@@ -24,6 +24,7 @@ public class MenuPausaSystem : MonoBehaviour
     private InputActionMap ActionMapGameplay;
     private DepthOfField dof;
 
+    public MenuSelector menuSelector; //plus del menú
 
     void Start()
     {
@@ -83,10 +84,11 @@ public class MenuPausaSystem : MonoBehaviour
 
     private IEnumerator Pausa()
     {
-        SoundFXManager.instance.PlayRandomPitch(SoundType.TIMBRE,0.2f);
+        SoundFXManager.instance.PlayRandomPitch(SoundType.TIMBRE, 0.2f);
         Time.timeScale = 0;
         ActionMapGameplay.Disable();
         MenuPausa.transform.SetAsLastSibling();
+        menuSelector.resetSelector();
         yield return StartCoroutine(Animar(new Vector3(0, 34, 0), 140, 225, 0, duracionAparicion));
         ActionMapUI.Enable();
         yield return null;
