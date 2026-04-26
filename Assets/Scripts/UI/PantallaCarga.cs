@@ -1,10 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-<<<<<<< Updated upstream
-=======
 //using UnityEditor.ShaderGraph.Serialization;
->>>>>>> Stashed changes
 
 public class PantallaCarga : MonoBehaviour
 {

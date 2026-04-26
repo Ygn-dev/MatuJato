@@ -3,23 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags:
-  - Dialogue
-  - Door
-  - Confiner
-  - PlayerHitBox
-  - ClosedDoor
-  - MusicaZonaCamaras
-<<<<<<< Updated upstream
-  - LockedDoor
-=======
-  - Item
->>>>>>> Stashed changes
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - DeathZone
+  - 
   - Water
   - UI
   - 
@@ -52,26 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Ground
-    uniqueID: 2312715989
-    locked: 0
-  - name: WalkInFront
-    uniqueID: 3041962559
-    locked: 0
-  - name: Collision
-    uniqueID: 322345893
-    locked: 0
-  - name: Player
-    uniqueID: 1889149713
-    locked: 0
-  - name: WalkBehind
-    uniqueID: 3901892109
-    locked: 0
-  - name: Decor
-    uniqueID: 3062807845
-    locked: 0
-  - name: UI
-    uniqueID: 193345239
-    locked: 0
   m_RenderingLayers:
   - Default
+  m_MigratedRenderPipelines: []
